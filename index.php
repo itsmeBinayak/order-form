@@ -35,7 +35,6 @@ $drinks = [
 
 $totalValue = 0;
 
-
 $valueChange = 0;
 
 if(isset($_GET['food'])){
@@ -49,6 +48,12 @@ else{
     // session_destroy();
 }
 
+foreach ($products AS $i => $product){
+if(isset($_POST['products'][$i])){
+    $totalValue = $totalValue + $product['price'];
+    $_SESSION['totalvalue'] = $totalValue;
+}
+}
 // define variables and set to empty values
 $emailErr = $streetNameErr = $streetNumberErr = $cityNameErr = $zipCodeErr = "";
 
