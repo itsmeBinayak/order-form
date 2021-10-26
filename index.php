@@ -46,15 +46,11 @@ if(!$valueChange){
 }
 else{
     $products = $sandwichs;
+    // session_destroy();
 }
 
 // define variables and set to empty values
 $emailErr = $streetNameErr = $streetNumberErr = $cityNameErr = $zipCodeErr = "";
-
-//  $streetName = $_POST["email"];
-//  $streetNumber = $_POST["email"];
-//  $cityName = $_POST["email"];
-//  $zipCode = $_POST["email"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
@@ -63,26 +59,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } 
   else{
     $_SESSION["email"] = $_POST["email"];
-    $email = $_POST["email"];
+    $email = test_input($_POST["email"]);
     // check if e-mail address is well-formed
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $emailErr = "Invalid email format";
-    }
+    }  
   }
+   
   if (empty($_POST["street"])) {
     $streetNameErr = "street name is required";
   } 
+  else{
+    $_SESSION["street"] = $_POST["street"];
+    $streetName = test_input($_POST["street"]);
+    // check if street name is well-formed
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$streetName)) {
+      $streetNameErr = "Invalid street name.";
+    }
+}
   if (empty($_POST["streetnumber"])) {
     $streetNumberErr = "street number is required";
   } 
+  else{
+    $_SESSION["streetnumber"] = $_POST["streetnumber"];
+    $streetNumber = test_input($_POST["streetnumber"]);
+    // check if street number is well-formed
+    if (!preg_match("/^[\d]+$/",$streetNumber)) {
+      $streetNumberErr = "Invalid street number.";
+    }
+}
   if (empty($_POST["city"])) {
     $cityNameErr = "city name is required";
   } 
+  else{
+    $_SESSION["city"] = $_POST["city"];
+    $cityName = test_input($_POST["city"]);
+    // check if city name is well-formed
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$cityName)) {
+      $cityNameErr = "Invalid city name.";
+    }
+}
   if (empty($_POST["zipcode"])) {
     $zipCodeErr = "zip code is required";
   } 
+  else{
+    $_SESSION["zipcode"] = $_POST["zipcode"];
+    $zipCode = test_input($_POST["zipcode"]);
+    // check if zipcode is well-formed
+    if (!preg_match("/^[\d]+$/",$zipCode)) {
+      $zipCodeErr = "Invalid zipcode.";
+    }
 }
-
+}
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
 
 require 'form-view.php';
-session_destroy();
+
