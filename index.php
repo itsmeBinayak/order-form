@@ -20,7 +20,7 @@ function whatIsHappening() {
 
 //your products with their price.
 
-if ($_GET["food"] === "1"){
+if (isset($_GET["food"]) && $_GET["food"] === "1"){
 $products = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $zipCodeErr = "Invalid zipcode.";
     }
 }
+
 }
 function test_input($data) {
     $data = trim($data);
@@ -134,10 +135,12 @@ if(isset($_POST['products'][$i])){
 }
 
 if (isset($_POST['express_delivery'])) {
-  $msg = "Your product will be arrive with in 20 min.";
+  
+  $msg = "Your foods and drinks will be arrive within 30 min.";
   $totalValue = $totalValue + 5;
 } else {
-  $msg = "Your product will be arrive with in 45 min.";
+  
+  $msg = "Your foods and drinks will be arrive within 45 min.";
 }
 if(isset($_POST['reset']))
   { 

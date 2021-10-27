@@ -80,7 +80,8 @@
         <button type="submit" class="btn btn-primary">Order!</button>
         <button type="submit" class="btn btn-primary" name="reset">Reset!</button>
     </form>
-
+    <br>
+    <div class="alert alert-success" role="alert"><?php echo "$msg";?></div>
     <footer>You already ordered <strong>&euro; <?php echo $_SESSION['totalCost']; ?></strong> in food and drinks.</footer>
 </div>
 
