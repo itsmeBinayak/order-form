@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 //we are going to use session variables so we need to enable sessions
 
+
 session_start();
-var_dump($_SESSION);
+
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -35,7 +36,8 @@ $products = [
     ['name' => 'Ice-tea', 'price' => 3],
 ];
 }
-$totalValue = 0;
+
+
 
 // $valueChange = 0;
 
@@ -50,12 +52,7 @@ $totalValue = 0;
 //     // session_destroy();
 // }
 
-foreach ($products AS $i => $product){
-  $_SESSION['$product'] = $_POST['$product'];
-if(isset($_POST['products'][$i])){
-    $totalValue = $totalValue + $product['price'];
-}
-}
+
 // define variables and set to empty values
 $emailErr = $streetNameErr = $streetNumberErr = $cityNameErr = $zipCodeErr = "";
 
@@ -124,6 +121,31 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
   }
+//cost calc
+  $totalValue = 0;
+if (isset($_SESSION['totalCost'])) {
+  $totalValue = $_SESSION['totalCost'];
+}
+foreach ($products AS $i => $product){
+ 
+if(isset($_POST['products'][$i])){
+    $totalValue = $totalValue + $product['price'];
+}
+}
 
+if (isset($_POST['express_delivery'])) {
+  $msg = "Your product will be arrive with in 20 min.";
+  $totalValue = $totalValue + 5;
+} else {
+  $msg = "Your product will be arrive with in 45 min.";
+}
+if(isset($_POST['reset']))
+  { 
+  session_unset();
+  }
+
+
+  $_SESSION['totalCost'] = $totalValue;
+  
 require 'form-view.php';
 
