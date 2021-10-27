@@ -5,7 +5,7 @@ declare(strict_types=1);
 //we are going to use session variables so we need to enable sessions
 
 session_start();
-
+var_dump($_SESSION);
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -18,40 +18,42 @@ function whatIsHappening() {
 }
 
 //your products with their price.
-$sandwichs = [
+
+if ($_GET["food"] === "1"){
+$products = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
     ['name' => 'Club Cheese & Ham', 'price' => 4],
     ['name' => 'Club Chicken', 'price' => 4],
     ['name' => 'Club Salmon', 'price' => 5]
 ];
-
-$drinks = [
+} else{
+$products = [
     ['name' => 'Cola', 'price' => 2],
     ['name' => 'Fanta', 'price' => 2],
     ['name' => 'Sprite', 'price' => 2],
     ['name' => 'Ice-tea', 'price' => 3],
 ];
-
+}
 $totalValue = 0;
 
-$valueChange = 0;
+// $valueChange = 0;
 
-if(isset($_GET['food'])){
-    $valueChange = $_GET['food'];
-}
-if(!$valueChange){
-    $products = $drinks;
-}
-else{
-    $products = $sandwichs;
-    // session_destroy();
-}
+// if(isset($_GET['food'])){
+//     $valueChange = $_GET['food'];
+// }
+// if(!$valueChange){
+//     $products = $drinks;
+// }
+// else{
+//     $products = $sandwichs;
+//     // session_destroy();
+// }
 
 foreach ($products AS $i => $product){
+  $_SESSION['$product'] = $_POST['$product'];
 if(isset($_POST['products'][$i])){
     $totalValue = $totalValue + $product['price'];
-    $_SESSION['totalvalue'] = $totalValue;
 }
 }
 // define variables and set to empty values
