@@ -149,6 +149,7 @@ if(isset($_POST['reset']))
 
 
   $_SESSION['totalCost'] = $totalValue;
-  
+  $msgMail = "Your order is sent.";
+  mail("someone@example.com","My subject",$msgMail);
 require 'form-view.php';
 
